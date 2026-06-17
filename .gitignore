@@ -1,1 +1,6 @@
-.venv
+# Environment
+.venv/
+env/
+
+# Data files
+*.parquet
