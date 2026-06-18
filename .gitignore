@@ -1,6 +1,13 @@
+# Python
+__pycache__/
+*.pyc
+
 # Environment
 .venv/
 env/
 
 # Data files
 *.parquet
+
+# Jupyter
+.ipynb_checkpoints/
