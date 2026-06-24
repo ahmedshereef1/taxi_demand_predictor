@@ -5,9 +5,13 @@ __pycache__/
 # Environment
 .venv/
 env/
+.env
 
 # Data files
 *.parquet
 
 # Jupyter
 .ipynb_checkpoints/
+
+# hopsworks-certs
+hopsworks-certs

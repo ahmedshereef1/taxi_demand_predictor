@@ -96,6 +96,7 @@ def load_row_data(
                 dowanlod_row_file_of_raw_data(year, month)
             except:
                 print(f'{year}-{month:02d} is not available')
+                continue  
         else:
             print(f'file {year}-{month:02d} was already in local storage')
         
