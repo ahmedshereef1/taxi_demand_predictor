@@ -1,6 +1,8 @@
 # Python
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
 
 # Environment
 .venv/
@@ -13,5 +15,22 @@ env/
 # Jupyter
 .ipynb_checkpoints/
 
-# hopsworks-certs
-hopsworks-certs
+# Hopsworks certificates
+hopsworks-certs/
+
+# Models
+*.pkl
+models/
+
+# VS Code
+.vscode/
+
+# Pytest
+.pytest_cache/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Poetry
+poetry.toml
