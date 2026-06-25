@@ -28,8 +28,9 @@ def train_test_split(
             - y_test (pd.Series): Test target values.
     """
 
-    train_data = df[df.pickup_hour < cutoff_data].reset_index(drop=True)
-    test_data = df[df.pickup_hour >= cutoff_data].reset_index(drop=True)
+    pickup_hour = pd.to_datetime(df['pickup_hour'], utc=True)
+    train_data = df[pickup_hour < cutoff_data].reset_index(drop=True)
+    test_data = df[pickup_hour >= cutoff_data].reset_index(drop=True)
 
     X_train = train_data.drop(columns=target_colum_name)
     y_train = train_data[target_colum_name]

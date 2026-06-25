@@ -11,6 +11,8 @@ env/
 
 # Data files
 *.parquet
+data/taxi_zones.zip
+data/taxi_zones/
 
 # Jupyter
 .ipynb_checkpoints/
