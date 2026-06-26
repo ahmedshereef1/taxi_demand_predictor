@@ -24,3 +24,5 @@ MODEL_NAME = "taxi_demand_predictor_next_hour"
 MODEL_VERSION = 2
 
 FEATURE_GROUP_MODEL_PREDICTIONS = "model_predictions"
+
+FEATURE_VIEW_MONITORING = "monitoring_feature_view"

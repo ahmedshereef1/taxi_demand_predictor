@@ -246,7 +246,7 @@ with st.spinner(text="Plotting time-series data"):
         fig = plot_one_example(
             example_id=row_id,
             features=features_df,
-            targets=predictions_df['predicted_demand'],
+            target=predictions_df['predicted_demand'],
             predictions=pd.Series(predictions_df['predicted_demand'])
         )
 

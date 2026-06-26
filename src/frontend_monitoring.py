@@ -3,7 +3,6 @@ from datetime import datetime, timedelta
 import numpy as np
 import pandas as pd
 import streamlit as st
-from sklearn.metrics import mean_absolute_error
 import plotly.express as px
 
 from src.monitoring import load_predictions_and_actual_values_from_store
@@ -53,15 +52,15 @@ with st.spinner(text="Plotting aggregate MAE hour-by-hour"):
     st.header('Mean Absolute Error (MAE) hour-by-hour')
 
     # MAE per pickup_hour
-    # https://stackoverflow.com/a/47914634
+    monitoring_df['ae'] = (monitoring_df['rides'] - monitoring_df['predicted_demand']).abs()
     mae_per_hour = (
         monitoring_df
-        .groupby('pickup_hour')
-        .apply(lambda g: mean_absolute_error(g['rides'], g['predicted_demand']))
-        .reset_index()
-        .rename(columns={0: 'mae'})
+        .groupby('pickup_hour', as_index=False)['ae']
+        .mean()
+        .rename(columns={'ae': 'mae'})
         .sort_values(by='pickup_hour')
     )
+    mae_per_hour['pickup_hour'] = mae_per_hour['pickup_hour'].dt.strftime('%Y-%m-%d %H:%M')
 
     fig = px.bar(
         mae_per_hour,
@@ -73,8 +72,7 @@ with st.spinner(text="Plotting aggregate MAE hour-by-hour"):
     st.plotly_chart(
         fig,
         theme="streamlit",
-        use_container_width=True,
-        width=1000
+        width='stretch',
     )
 
     progress_bar.progress(2 / N_STEPS)
@@ -96,15 +94,13 @@ with st.spinner(text="Plotting MAE hour-by-hour for top locations"):
     for location_id in top_locations_by_demand:
 
         mae_per_hour = (
-            monitoring_df[
-                monitoring_df.pickup_location_id == location_id
-            ]
-            .groupby('pickup_hour')
-            .apply(lambda g: mean_absolute_error(g['rides'], g['predicted_demand']))
-            .reset_index()
-            .rename(columns={0: 'mae'})
+            monitoring_df[monitoring_df.pickup_location_id == location_id]
+            .groupby('pickup_hour', as_index=False)['ae']
+            .mean()
+            .rename(columns={'ae': 'mae'})
             .sort_values(by='pickup_hour')
         )
+        mae_per_hour['pickup_hour'] = mae_per_hour['pickup_hour'].dt.strftime('%Y-%m-%d %H:%M')
 
         fig = px.bar(
             mae_per_hour,
@@ -117,8 +113,7 @@ with st.spinner(text="Plotting MAE hour-by-hour for top locations"):
         st.plotly_chart(
             fig,
             theme="streamlit",
-            use_container_width=True,
-            width=1000
+            width='stretch',
         )
 
     progress_bar.progress(3 / N_STEPS)
