@@ -131,6 +131,40 @@ def load_batch_of_features_from_store(
 
     return features
 
+def load_predictions_from_store(
+    from_pickup_hour: datetime,
+    to_pickup_hour: datetime,
+) -> pd.DataFrame:
+    """
+    Load model predictions from the Hopsworks Feature Store.
+    """
+
+    feature_store = get_feature_store()
+
+    feature_group = feature_store.get_feature_group(
+        name=config.FEATURE_GROUP_MODEL_PREDICTIONS,
+        version=1,
+    )
+
+    predictions = feature_group.read()
+
+    predictions["pickup_hour"] = (
+        pd.to_datetime(predictions["pickup_hour"])
+        .dt.tz_localize(None)
+    )
+
+    predictions = predictions[
+        predictions["pickup_hour"].between(
+            from_pickup_hour,
+            to_pickup_hour,
+        )
+    ]
+
+    predictions = predictions.sort_values(
+        by=["pickup_hour", "pickup_location_id"]
+    ).reset_index(drop=True)
+
+    return predictions
 
 def load_model_from_registry():
 

@@ -22,3 +22,5 @@ FEATURE_VIEW_VERSION = 1
 N_FEATURES  = 29 * 24  # 696
 MODEL_NAME = "taxi_demand_predictor_next_hour"
 MODEL_VERSION = 2
+
+FEATURE_GROUP_MODEL_PREDICTIONS = "model_predictions"
