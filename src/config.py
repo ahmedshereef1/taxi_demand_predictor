@@ -26,3 +26,5 @@ MODEL_VERSION = 2
 FEATURE_GROUP_MODEL_PREDICTIONS = "model_predictions"
 
 FEATURE_VIEW_MONITORING = "monitoring_feature_view"
+
+MAX_MAE = 15.0

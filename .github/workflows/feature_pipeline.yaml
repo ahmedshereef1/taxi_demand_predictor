@@ -25,8 +25,4 @@ jobs:
       - name: Execute Feature Pipeline Notebook
         env:
           HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY }}
-        run: |
-          poetry run jupyter nbconvert \
-            --to notebook \
-            --execute notebooks/12_feature_pipeline.ipynb \
-            --ExecutePreprocessor.timeout=3600
+        run: make features

@@ -1,12 +1,35 @@
 import requests
 from pathlib import Path
 from typing import Optional, List, Tuple
+from datetime import datetime, timedelta
 
-from tqdm import tqdm 
+from tqdm import tqdm
 import pandas as pd
-import numpy as np 
+import numpy as np
 
-from src.paths import RAW_DATA_DIR, TRASNFORMED_DATA_DIR
+from src.paths import RAW_DATA_DIR
+
+
+def fetch_batch_raw_data(from_date: datetime, to_date: datetime) -> pd.DataFrame:
+    """
+    Simulate production data by sampling historical data from 52 weeks ago.
+    """
+    from_date_ = from_date - timedelta(days=7*52)
+    to_date_ = to_date - timedelta(days=7*52)
+
+    rides = load_row_data(year=from_date_.year, months=from_date_.month)
+    rides = rides[rides.pickup_datetime >= from_date_]
+    rides_2 = load_row_data(year=to_date_.year, months=to_date_.month)
+    rides_2 = rides_2[rides_2.pickup_datetime < to_date_]
+
+    rides = pd.concat([rides, rides_2])
+
+    # shift data forward 52 weeks to simulate recent data
+    rides['pickup_datetime'] += timedelta(days=7*52)
+
+    rides.sort_values(by=['pickup_location_id', 'pickup_datetime'], inplace=True)
+
+    return rides
 
 def dowanlod_row_file_of_raw_data(year: int, month: int) -> Path:
     """

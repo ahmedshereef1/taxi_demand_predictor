@@ -11,6 +11,11 @@ env/
 
 # Data files
 *.parquet
+*.csv
+*.json
+data/raw/
+data/transformed/
+data/cache/
 data/taxi_zones.zip
 data/taxi_zones/
 
