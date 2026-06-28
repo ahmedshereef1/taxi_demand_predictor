@@ -19,7 +19,7 @@ backfill:
 
 # starts the Streamlit app
 frontend-app:
-	poetry run streamlit run src/frontend_production.py.py
+	poetry run streamlit run src/frontend_production.py
 
 monitoring-app:
 	poetry run streamlit run src/frontend_monitoring.py
