@@ -2,6 +2,8 @@
 
 - My interest in creating this project was ignited after reading UBER's blog post on (:link: [Demand and ETR Forecasting at Airports](https://www.uber.com/en-GB/blog/demand-and-etr-forecasting-at-airports/))
 
+- here is workflow: https://gamma.app/docs/gnxwoidi19jjmt5
+
 ## Table of Contents
   * [Quick Setup](#quick-setup)
   * [Problem Statement](#problem-statement)
